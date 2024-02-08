@@ -14,7 +14,8 @@ vector<int> read_multiset(string file_name);
 string get_file_name();
 map<int, int> count_eligible_ncuts(int min, int max);
 void check_input(vector<int> multiset, map<int, int> eligible_cuts);
-int find_first_element_index(vector<int> multiset);
+int find_first_element(vector<int> multiset);
+int find_first_element_index(int first_element, vector<int> multiset);
 void find_solution(int first_element_index, int max_map_size, vector<int>& multiset, vector<int>& map,
 	vector<int>& final_map, vector<int>& read_from_multiset);
 bool check_vertex(vector<int> multiset, vector<int> map);
@@ -35,7 +36,8 @@ int main() {
 	check_input(multiset, eligible_cuts);
 	
 	//preparing data structures
-	int first_element_index = find_first_element_index(multiset);
+	int first_element = find_first_element(multiset);
+	int first_element_index = find_first_element_index(first_element, multiset);
 	vector<int> map = {};
 	vector<int> final_map = {};
 	vector<int> read_from_multiset(multiset.size());
@@ -110,9 +112,14 @@ void check_input(vector<int> multiset, map<int,int> eligible_cuts) {
 	}
 }
 
-int find_first_element_index(vector<int> multiset) {
+int find_first_element(vector<int> multiset) {
 	sort(multiset.begin(), multiset.end());
 	int first_element = multiset[multiset.size() - 1] - multiset[multiset.size() - 2];
+	return first_element;
+}
+
+int find_first_element_index(int first_element, vector<int> multiset) {
+	
 	for (int index_of_first_element = 0; index_of_first_element < multiset.size(); index_of_first_element++) {
 		if (multiset[index_of_first_element] == first_element) {
 			return index_of_first_element;
