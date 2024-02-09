@@ -19,7 +19,7 @@ int find_first_element_index(int first_element, vector<int> multiset);
 void find_solution(int first_element_index, int max_map_size, vector<int>& multiset, vector<int>& map,
 	vector<int>& final_map, vector<int>& read_from_multiset);
 bool check_vertex(vector<int> multiset, vector<int> map);
-void print_result(double time, vector<int> final_map);
+void print_result(double time, string file_name, vector<int> multiset, vector<int> final_map);
 
 //global variables
 const int MIN_CUT = 1;
@@ -30,8 +30,10 @@ int main() {
 	//file reading
 	string file_name = get_file_name();
 	vector<int> multiset = read_multiset(file_name);
+
 	//creating a map for eligibile cuts
 	map<int, int> eligible_cuts = count_eligible_ncuts(MIN_CUT, MAX_CUT);
+
 	//checking the input
 	check_input(multiset, eligible_cuts);
 	
@@ -50,13 +52,7 @@ int main() {
 
 	//printing the result
 	double time = (double)(end - begin) / (double)CLOCKS_PER_SEC;
-	print_result(time, final_map);
-
-	//testing
-	cout << "Contents of multiset A: ";
-	for (auto x : multiset) {
-		cout << x << " ";
-	}
+	print_result(time, file_name, multiset, final_map);
 }
 
 //implementation of methods
@@ -89,7 +85,7 @@ string get_file_name() {
 	return file_name;
 }
 
-map<int, int> count_eligible_ncuts(int min, int max){ //counting eligible multiset size, based on equation with newton symbol 
+map<int, int> count_eligible_ncuts(int min, int max){ 
 	map<int, int> eligible_cuts;
 
 		for (int k = min; k <= max; k++)
@@ -101,7 +97,6 @@ map<int, int> count_eligible_ncuts(int min, int max){ //counting eligible multis
 }
 
 void check_input(vector<int> multiset, map<int,int> eligible_cuts) {
-	//rather control flow than exception handling
 	if (eligible_cuts.at(multiset.size()) != 0)
 	{
 		cout << "Map can be created for the provided multiset" << endl;
@@ -130,6 +125,7 @@ int find_first_element_index(int first_element, vector<int> multiset) {
 void find_solution(int first_element_index, int max_map_size, vector<int>& multiset, vector<int>& map,
 	vector<int>& final_map, vector<int>& read_from_multiset)
 {
+	int iteration_map = NULL;
 	if (map.size() == 0)
 	{
 		map.push_back(multiset[first_element_index]);
@@ -148,7 +144,7 @@ void find_solution(int first_element_index, int max_map_size, vector<int>& multi
 		}
 		else
 		{
-			if (read_from_multiset[i] == 1)
+			if (read_from_multiset[i] == 1 || iteration_map == multiset[i])
 			{
 				continue;
 			}
@@ -160,6 +156,7 @@ void find_solution(int first_element_index, int max_map_size, vector<int>& multi
 				find_solution(first_element_index, max_map_size, multiset, map, final_map, read_from_multiset);
 			}
 			map.pop_back();
+			iteration_map = multiset[i]; 
 			read_from_multiset[i] = 0;
 			if (final_map.size() != 0)
 			{
@@ -174,7 +171,7 @@ bool check_vertex(vector<int> multiset, vector<int> map)
 {
 	vector<int> tmp = {};
 	int count_ = 0;
-	for (int i = 0; i < map.size(); i++) // checking if tmp == multiset
+	for (int i = 0; i < map.size(); i++) 
 	{
 		for (int j = i; j < map.size(); j++)
 		{
@@ -192,7 +189,7 @@ bool check_vertex(vector<int> multiset, vector<int> map)
 		}
 		else if (count(tmp.begin(), tmp.end(), multiset[i])) 
 		{
-			tmp.erase(find(tmp.begin(), tmp.end(), multiset[i])); //deleting elements in tmp added in this tree vertex
+			tmp.erase(find(tmp.begin(), tmp.end(), multiset[i])); 
 
 		}
 	}
@@ -203,14 +200,21 @@ bool check_vertex(vector<int> multiset, vector<int> map)
 	return false;
 }
 
-void print_result(double time, vector<int> final_map) {
+void print_result(double time, string file_name, vector<int> multiset, vector<int> final_map) {
+	string name = file_name.substr(0, file_name.length() - 4);
+
+	cout << "Zawartosc multizbioru " << name << ":" << endl;
+	for (auto x : multiset) {
+		cout << x << " ";
+	}
+	cout << endl;
 	if (final_map.empty()) {
 		cout << "Map cannot be found";
 		exit(0);
 	}
-	cout << "Map for the provided instance: ";
+	cout << "Mapa: ";
 	for (int i : final_map) {
 		cout << i << " ";
 	}
-	cout << endl << "Time of processing the algorithm: " << time << " s." << endl;
+	cout << endl << "Czas przetwarzania algorytmu: " << time << " s." << endl;
 }

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZadanieIVMR", "ZadanieIVMR\ZadanieIVMR.vcxproj", "{78EA9387-39C7-4314-86DC-D7524609CA4F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "generator", "Project1\Project1.vcxproj", "{DC5A4673-44E8-444F-88F6-65F4123A2FF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{78EA9387-39C7-4314-86DC-D7524609CA4F}.Release|x64.Build.0 = Release|x64
 		{78EA9387-39C7-4314-86DC-D7524609CA4F}.Release|x86.ActiveCfg = Release|Win32
 		{78EA9387-39C7-4314-86DC-D7524609CA4F}.Release|x86.Build.0 = Release|Win32
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Debug|x64.ActiveCfg = Debug|x64
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Debug|x64.Build.0 = Debug|x64
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Debug|x86.ActiveCfg = Debug|Win32
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Debug|x86.Build.0 = Debug|Win32
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Release|x64.ActiveCfg = Release|x64
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Release|x64.Build.0 = Release|x64
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Release|x86.ActiveCfg = Release|Win32
+		{DC5A4673-44E8-444F-88F6-65F4123A2FF9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
